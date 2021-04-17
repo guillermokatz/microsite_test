@@ -1,0 +1,99 @@
+<%- include('partials/head') %>
+  <main class="container-fluid">
+    <div
+      class="mx-auto vh-100 bg-light flex-column  justify-content-start align-items-start justify-content-md-center align-items-md-center">
+
+      <div class="m-4 col-10 text-center mx-auto">
+
+        <p>
+          <%= typeof(msg) !="undefined" ? msg : "" %>
+        </p>
+
+        <% if (userSession) { %>
+
+          <p class="m-2">Estas loggeado como <strong>
+              <%=userSession.username%>
+            </strong></p>
+          <form action="/users/logout" method="POST"><button type="submit"
+              class="shadow-sm btn btn-outline-warning btn-lg">LOGOUT</button></form>
+
+          <% } else { %>
+
+            <a href="/users/login"><button type="button" class="shadow-sm btn btn-warning btn-lg">LOGIN</button></a>
+            <p class="m-2">Inicia sesión para descargar CVs y eliminar usuarios</p>
+
+            <% } %>
+
+      </div>
+
+      <div class="m-4 col-10 align-self-md-center d-block mx-auto">
+        <table class="table text-break">
+          <thead>
+            <tr>
+              <th scope="col">Fecha</th>
+              <th scope="col">Username</th>
+              <th scope="col">Name</th>
+              <% if(userSession) { %>
+                <th scope="col">Download CV</th>
+                <th scope="col">Delete</th>
+                <% } %>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach(user=> { %>
+              <% if(user.username !=userSession.username ) { %>
+                <tr>
+                  <td>
+                    <%=new Date(user.createdAt).toLocaleString('es-AR',{day: '2-digit' , month: '2-digit' ,
+                      year:'numeric'}).split("-").reverse().join('-')%>
+                  </td>
+                  <td>
+                    <%=user.username%>
+                  </td>
+                  <td>
+                    <%=user.name%>
+                  </td>
+                  <% if (userSession) { %>
+                    <td>
+                      <% if (user.cv !=null) { %>
+                        <form method="POST" action="/users/getFile/" target="_blank">
+                          <input type="hidden" name="file" value="<%= user.cv%>" />
+                          <a href="" onclick="event.preventDefault(); this.parentElement.submit();"><button
+                              type="button" class="shadow-sm btn btn-danger btn-sm">DOWNLOAD
+                              CV</button></a>
+                        </form>
+
+
+                        <% } else { %>
+                          -
+                          <% } %>
+
+                    </td>
+                    <td>
+                      <form action="/users/<%=user.id_user%>/delete?_method=DELETE" method="POST">
+                        <button class="btn btn-outline-dark btn-sm shadow-sm" type="submit"
+                          onclick="if(!confirm('¿CONFIRMA BORRAR A <%=user.username.toUpperCase()%>?')) { event.preventDefault() }">DELETE
+                          USER</button>
+                      </form>
+                      <!-- <a href="/users/login"><button type="button" class="btn btn-outline-dark btn-sm shadow-sm">DELETE
+                      USER</button></a> -->
+
+                    </td>
+                    <% } %>
+
+                </tr>
+                <% } %>
+                  <% }) %>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="m-4 col-10 text-center mx-auto">
+
+        <a href="/users/create"><button type="button" class="shadow btn btn-secondary btn-lg">NUEVO USUARIO</button></a>
+      </div>
+
+  </main>
+
+  <%- include('partials/footer') %>

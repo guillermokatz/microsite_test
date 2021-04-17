@@ -1,0 +1,56 @@
+<%- include('../partials/head') %>
+  <script src="/js/userCreateValidator.js" defer></script>
+  <main class="container-fluid">
+    <div
+      class="vh-100 bg-light flex-column flex-md-row row justify-content-start align-items-start justify-content-md-center align-items-md-center">
+
+
+      <form action="/users/create" class="col-8 m-4 col-10 text-center align-self-md-end " method="POST"
+        enctype="multipart/form-data" id="registerForm">
+
+        <div class="mb-3 col-md-4 mx-auto">
+          <p class="text-danger"></p>
+          <label for="username" class="form-label">Email (Username)</label>
+          <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp">
+          <!-- <div id="usernameHelp" class="form-text">Ingrese un email válido</div> -->
+        </div>
+
+        <div class="mb-3 col-md-4 mx-auto">
+          <p class="text-danger"></p>
+          <label for="password" class="form-label">Contraseña</label>
+          <input name="password" type="password" class="form-control" id="password" aria-describedby="passHelp">
+          <!-- <div id="passHelp" class="form-text">Ingrese su contraseña</div> -->
+        </div>
+
+        <div class="mb-3 col-md-4 mx-auto">
+          <p class="text-danger"></p>
+          <label for="repassword" class="form-label">Repetir Contraseña</label>
+          <input name="repassword" type="password" class="form-control" id="repassword" aria-describedby="repassHelp">
+          <!-- <div id="repassHelp" class="form-text">Ingrese su contraseña</div> -->
+        </div>
+
+        <div class="mb-3 col-md-4 mx-auto">
+          <p class="text-danger"></p>
+          <label for="name" class="form-label">Nombre completo</label>
+          <input name="name" type="text" class="form-control" id="name" aria-describedby="nameHelp">
+          <!-- <div id="nameHelp" class="form-text">Ingrese su nombre de usuario</div> -->
+        </div>
+
+        <div class="mb-3 col-md-4 mx-auto">
+          <p class="text-danger"></p>
+          <label for="cv" class="form-label">Seleccionar CV (Opcional)</label>
+          <input name="cv" type="file" class="form-control" id="cv" aria-describedby="cvHelp">
+          <!-- <div id="cvHelp" class="form-text">Ingrese su nombre de usuario</div> -->
+        </div>
+
+        <button type="submit" class=" mx-auto btn btn-lg btn-warning shadow">SAVE</button>
+      </form>
+
+
+      <div class="m-4 col-10 align-self-md-start text-center">
+        <a href="/"><button type="button" class="shadow btn btn-secondary btn-lg">CANCELAR</button></a>
+
+      </div>
+
+  </main>
+  <%- include('../partials/footer') %>
